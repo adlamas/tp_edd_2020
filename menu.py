@@ -17,10 +17,11 @@ class Menu:
             try:
                 #Utilizo int(input("...")) para asegurarme que lo que entre en el sistema sea
                 #si o si Un integer , caso contrario entra en el Except ya que el int() tira error
-                self.__metodo_busqueda = int(
-                input("¿Que metodo de busqueda quiere utilizar?" +
+                self.__metodo_busqueda = int(input(
+                        "¿Que metodo de busqueda quiere utilizar?" +
                         " \n 1)Frase completa \n 2)Que contenga todas las palabras "+
-                        " \n 3)Que contenga algunas palabras \n "))
+                        " \n 3)Que contenga algunas palabras \n ")
+                    )
                 if(self.__metodo_busqueda < 4 and self.__metodo_busqueda > 0):
                     break
                 else:
@@ -29,9 +30,10 @@ class Menu:
                 print("Tiene que ingresar un numero")
 
         while True:
-            self.__paginas_a_buscar = input("¿En que paginas desea buscar? "+
-            " (Escribir de esta manera si es mas de 1 pagina. 1,2,3,4,5) "+
-            " \n 1)Garbarino \n 2)Rodo \n 3)Compumundo \n 4)Fravega \n")
+            self.__paginas_a_buscar = input(
+                "¿En que paginas desea buscar? "+
+                " (Escribir de esta manera si es mas de 1 pagina. 1,2,3,4,5) "+
+                " \n 1)Garbarino \n 2)Rodo \n 3)Compumundo \n 4)Fravega \n")
             match = re.fullmatch("^[1-4]?[,[1-4]+$",self.__paginas_a_buscar)
 
             if(match != None):
