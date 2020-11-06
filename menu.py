@@ -1,9 +1,6 @@
 import re
-import scrapy
 from scrapy.crawler import CrawlerProcess
-import pdb
-import csv
-from rodo import RodoSpider
+from spiders.rodo import RodoSpider
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
@@ -49,7 +46,8 @@ class Menu:
                  if self.__verificar_valores(self.__paginas_a_buscar):
                       break
 
-        self.scrapear()
+        # Acá debería scrapearse los 4 marketplaces
+        print(self.scrapear())
 
 
     #Metodo Para Verificar Cada Caracter Separado por ","
@@ -91,10 +89,11 @@ class Menu:
         process = CrawlerProcess()
         process.crawl(RodoSpider)
         process.start()
+        return RodoSpider.respuesta
 
 
 if __name__ == "__main__":
     casa = Menu()
-    print(casa.geta_buscar())
-    print(casa.getmetodo_busqueda())
-    print(casa.getpaginas_a_buscar())
+    casa.geta_buscar()
+    casa.getmetodo_busqueda()
+    casa.getpaginas_a_buscar()
