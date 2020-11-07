@@ -2,7 +2,7 @@ import re
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
-    def __init__(self):
+    def iniciar(self):
 
         #While es True que me permite mantener al usuario ahi ,
         #hasta que los valores sean dentro de lo deseado
@@ -82,6 +82,7 @@ class Menu:
 
 if __name__ == "__main__":
     casa = Menu()
-    print(casa.geta_buscar())
-    print(casa.getmetodo_busqueda())
-    print(casa.getpaginas_a_buscar())
+    casa.iniciar()
+    #print(casa.geta_buscar())
+    #print(casa.getmetodo_busqueda())
+    #print(casa.getpaginas_a_buscar())
