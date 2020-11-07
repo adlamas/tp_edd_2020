@@ -2,12 +2,30 @@ import re
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
-    def iniciar(self):
 
+    def __input_termino_a_buscar(self):
+        termino = input("¿Que desea buscar? \n")
+        return termino
+
+    def __input_buscar_en_paginas(self):
+        paginas = input("¿En que paginas desea buscar? "+
+                " (Escribir de esta manera si es mas de 1 pagina. 1,2,3,4,5) "+
+                " \n 1)Garbarino \n 2)Rodo \n 3)Compumundo \n 4)Fravega \n")
+        return paginas
+
+    def __input_metodo_de_busqueda(self):
+        metodo = int(input( "¿Que metodo de busqueda quiere utilizar?" +
+                " \n 1)Frase completa \n 2)Que contenga todas las palabras "+
+                " \n 3)Que contenga algunas palabras \n ")
+                )
+
+        return metodo
+
+    def iniciar(self):
         #While es True que me permite mantener al usuario ahi ,
         #hasta que los valores sean dentro de lo deseado
         while True:
-            self.__a_buscar = input("¿Que desea buscar? \n")
+            self.__a_buscar = self.__input_termino_a_buscar()
 
             #El Metodo IsSpace() Me Permite Saber Si El Valor Ingresado es solamente espacios
             if not self.__a_buscar.isspace():
@@ -17,11 +35,7 @@ class Menu:
             try:
                 #Utilizo int(input("...")) para asegurarme que lo que entre en el sistema sea
                 #si o si Un integer , caso contrario entra en el Except ya que el int() tira error
-                self.__metodo_busqueda = int(input(
-                        "¿Que metodo de busqueda quiere utilizar?" +
-                        " \n 1)Frase completa \n 2)Que contenga todas las palabras "+
-                        " \n 3)Que contenga algunas palabras \n ")
-                    )
+                self.__metodo_busqueda = self.__input_metodo_de_busqueda()
                 if(self.__metodo_busqueda < 4 and self.__metodo_busqueda > 0):
                     break
                 else:
@@ -30,10 +44,7 @@ class Menu:
                 print("Tiene que ingresar un numero")
 
         while True:
-            self.__paginas_a_buscar = input(
-                "¿En que paginas desea buscar? "+
-                " (Escribir de esta manera si es mas de 1 pagina. 1,2,3,4,5) "+
-                " \n 1)Garbarino \n 2)Rodo \n 3)Compumundo \n 4)Fravega \n")
+            self.__paginas_a_buscar = self.__input_buscar_en_paginas()
             match = re.fullmatch("^[1-4]?[,[1-4]+$",self.__paginas_a_buscar)
 
             if(match != None):
@@ -83,6 +94,6 @@ class Menu:
 if __name__ == "__main__":
     casa = Menu()
     casa.iniciar()
-    #print(casa.geta_buscar())
-    #print(casa.getmetodo_busqueda())
-    #print(casa.getpaginas_a_buscar())
+    print(casa.geta_buscar())
+    print(casa.getmetodo_busqueda())
+    print(casa.getpaginas_a_buscar())
