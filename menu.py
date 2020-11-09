@@ -1,9 +1,8 @@
 import re
-
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
 
-    def __input_termino_a_buscar(self):
+    def input_termino_a_buscar(self):
         termino = input("¿Que desea buscar? \n")
         return termino
 
@@ -23,9 +22,10 @@ class Menu:
 
     def iniciar(self):
         #While es True que me permite mantener al usuario ahi ,
-        #hasta que los valores sean dentro de lo deseado
+        #hasta que los valores sean dentro de lo
         while True:
-            self.__a_buscar = self.__input_termino_a_buscar()
+            self.__a_buscar = self.input_termino_a_buscar()
+
 
             #El Metodo IsSpace() Me Permite Saber Si El Valor Ingresado es solamente espacios
             if not self.__a_buscar.isspace():
