@@ -1,6 +1,7 @@
 import re
 from scrapy.crawler import CrawlerProcess
 from spiders.rodo import RodoSpider
+from spiders.fravega import FravegaSpider
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
@@ -87,12 +88,14 @@ class Menu:
 
     def scrapear(self):
         process = CrawlerProcess()
-        #Crawler De Rodo
+
+        #Crawlers
         process.crawl(RodoSpider, self.__a_buscar)
-        #Crawler De Garbarino
-        #process.crawl(GarbarinoSpider,self.__a_buscar)
+        process.crawl(FravegaSpider,self.__a_buscar)
+
         process.start()
-        return RodoSpider.respuesta
+
+        return { "Rodo": RodoSpider.respuesta, "Fravega": FravegaSpider.respuesta }
 
 
 
