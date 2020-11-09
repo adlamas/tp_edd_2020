@@ -1,6 +1,5 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
-import pdb
 
 class FravegaSpider(scrapy.Spider):
 
