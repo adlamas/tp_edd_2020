@@ -3,13 +3,16 @@ from scrapy.crawler import CrawlerProcess
 import pdb
 
 class RodoSpider(scrapy.Spider):
+
     name = 'rodo'
-    start_urls = [
-        'https://rodo.com.ar/productos/imagen-sonido/minicomponente.html'
-    ]
-    allowed_domains = ['https://www.rodo.com.ar']
+    def __init__(self,url):
+        self.urlbusqueda = url
+        self.start_urls = [
+            'https://rodo.com.ar/catalogsearch/result/?q=' + self.urlbusqueda
+        ]
 
     respuesta = []
+    allowed_domains = ['https://www.rodo.com.ar']
 
     def parse(self, response):
         for producto in response.css(".item"):

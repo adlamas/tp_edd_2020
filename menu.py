@@ -87,9 +87,14 @@ class Menu:
 
     def scrapear(self):
         process = CrawlerProcess()
-        process.crawl(RodoSpider)
+        #Crawler De Rodo
+        process.crawl(RodoSpider, self.__a_buscar)
+        #Crawler De Garbarino
+        #process.crawl(GarbarinoSpider,self.__a_buscar)
         process.start()
         return RodoSpider.respuesta
+
+
 
 
 if __name__ == "__main__":
