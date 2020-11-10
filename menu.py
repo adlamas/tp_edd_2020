@@ -1,8 +1,8 @@
 import re
 from scrapy.crawler import CrawlerProcess
-from spiders.rodo import RodoSpider
-from spiders.fravega import FravegaSpider
-from spiders.compumundo import CompumundoSpider
+from tp_2020.tp_2020.spiders.rodo import RodoSpider
+from tp_2020.tp_2020.spiders.fravega import FravegaSpider
+from tp_2020.tp_2020.spiders.compumundo import CompumundoSpider
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
@@ -50,6 +50,7 @@ class Menu:
 
         # Acá debería scrapearse los 4 marketplaces
         scrapeo = self.scrapear()
+        print(scrapeo)
 
 
     #Metodo Para Verificar Cada Caracter Separado por ","
@@ -91,16 +92,16 @@ class Menu:
         process = CrawlerProcess()
 
         #Crawlers
-        #process.crawl(RodoSpider, self.__a_buscar)
-        #process.crawl(FravegaSpider,self.__a_buscar)
-        #process.crawl(CompumundoSpider,self.__a_buscar)
+        process.crawl(RodoSpider, self.__a_buscar)
+        process.crawl(FravegaSpider,self.__a_buscar)
+        process.crawl(CompumundoSpider,self.__a_buscar)
 
         process.start()
 
         return {
-            #"Rodo": RodoSpider.respuesta,
-            #"Fravega": FravegaSpider.respuesta,
-            #"Compumundo": CompumundoSpider.respuesta
+            "Rodo": RodoSpider.respuesta,
+            "Fravega": FravegaSpider.respuesta,
+            "Compumundo": CompumundoSpider.respuesta
         }
 
 

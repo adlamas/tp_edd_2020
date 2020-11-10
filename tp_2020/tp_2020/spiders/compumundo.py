@@ -8,8 +8,10 @@ class CompumundoSpider(scrapy.Spider):
     respuesta = []
 
     custom_settings = {
-        'USER-AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
+        'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
     }
+
+    USER_AGENT = 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'
 
     def __init__(self, busqueda=None, *args, **kwargs):
         super(CompumundoSpider,self).__init__(*args, **kwargs)
