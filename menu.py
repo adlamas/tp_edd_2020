@@ -89,20 +89,30 @@ class Menu:
         return self.__paginas_a_buscar
 
     def scrapear(self):
-        process = CrawlerProcess()
+        paginas_busqueda_split = str(self.__paginas_a_buscar).split(",")
+        process = CrawlerProcess({'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'})
+        #Con Esto Se Seleccionan que Spiders vamos a usar
+        for pagina in paginas_busqueda_split:
+            if pagina == "2":
+                process.crawl(RodoSpider,self.__a_buscar)
+            if pagina == "3":
+                process.crawl(CompumundoSpider,self.__a_buscar)
+            if pagina == "4":
+                process.crawl(FravegaSpider,self.__a_buscar)
 
-        #Crawlers
-        process.crawl(RodoSpider, self.__a_buscar)
-        process.crawl(FravegaSpider,self.__a_buscar)
-        process.crawl(CompumundoSpider,self.__a_buscar)
-
+        #Se Ejecutan Las Spiders, el parameto stop_after_crawl=true ,
+        #determina que hasta que no se terminen de scrapear todas las spider no pare
         process.start()
+        resultados_busqueda = dict()
+        for resultado in paginas_busqueda_split:
+            if resultado == "2":
+                resultados_busqueda['Rodo'] = RodoSpider.respuesta
+            if resultado == "3":
+                resultados_busqueda['Compumundo'] = CompumundoSpider.respuesta
+            if resultado == "4":
+                resultados_busqueda['Fravega'] = FravegaSpider.respuesta
 
-        return {
-            "Rodo": RodoSpider.respuesta,
-            "Fravega": FravegaSpider.respuesta,
-            "Compumundo": CompumundoSpider.respuesta
-        }
+        return resultados_busqueda
 
 
 if __name__ == "__main__":
