@@ -93,11 +93,9 @@ class Menu:
         process = CrawlerProcess({'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'})
         #Con Esto Se Seleccionan que Spiders vamos a usar
         for pagina in paginas_busqueda_split:
-            if pagina == "2":
+            if pagina == "1":
                 process.crawl(RodoSpider,self.__a_buscar)
-            if pagina == "3":
-                process.crawl(CompumundoSpider,self.__a_buscar)
-            if pagina == "4":
+            if pagina == "2":
                 process.crawl(FravegaSpider,self.__a_buscar)
 
         #Se Ejecutan Las Spiders, el parameto stop_after_crawl=true ,
@@ -105,11 +103,9 @@ class Menu:
         process.start()
         resultados_busqueda = dict()
         for resultado in paginas_busqueda_split:
-            if resultado == "2":
+            if resultado == "1":
                 resultados_busqueda['Rodo'] = RodoSpider.respuesta
-            if resultado == "3":
-                resultados_busqueda['Compumundo'] = CompumundoSpider.respuesta
-            if resultado == "4":
+            if resultado == "2":
                 resultados_busqueda['Fravega'] = FravegaSpider.respuesta
 
         return resultados_busqueda
