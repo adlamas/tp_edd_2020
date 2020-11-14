@@ -92,13 +92,14 @@ class Menu:
         return self.__paginas_a_buscar
 
     def __elegir_tipo_de_filtrado(self,numero,resultados_busqueda ):
+        filtrador = Filtrador()
         res = []
         if numero == 1:
-            res = Filtrador.frase_completa(resultados_busqueda, self.__a_buscar)
+            res = filtrador.frase_completa(resultados_busqueda, self.__a_buscar)
         elif numero == 2:
-            res = Filtrador.contenga_todas_las_palabras(resultados_busqueda, self.__a_buscar)
+            res = filtrador.contenga_todas_las_palabras(resultados_busqueda, self.__a_buscar)
         elif numero == 3:
-            res = Filtrador.contenga_algunas_palabras(resultados_busqueda, self.__a_buscar)
+            res = filtrador.contenga_algunas_palabras(resultados_busqueda, self.__a_buscar)
 
         return res
 
@@ -128,8 +129,6 @@ class Menu:
                 resultados_busqueda = resultados_busqueda + CompumundoSpider.respuesta
             if resultado == "4":
                 resultados_busqueda = resultados_busqueda + FravegaSpider.respuesta
-
-        Filtrador.contenga_algunas_palabras(resultados_busqueda, self.__a_buscar)
 
         resultados_busqueda = self.__elegir_tipo_de_filtrado(self.__metodo_busqueda,
                 resultados_busqueda )

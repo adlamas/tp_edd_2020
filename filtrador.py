@@ -1,6 +1,6 @@
 class Filtrador:
 
-    def frase_completa(resultados_sin_filtrar, frase):
+    def frase_completa(self, resultados_sin_filtrar, frase):
         resultado_total_filtrado = []
         for arreglo_prod in resultados_sin_filtrar:
             if frase in arreglo_prod[0]:
@@ -8,7 +8,7 @@ class Filtrador:
 
         return resultado_total_filtrado
 
-    def contenga_todas_las_palabras(resultados_sin_filtrar, frase):
+    def contenga_todas_las_palabras(self, resultados_sin_filtrar, frase):
         resultado_total_filtrado = []
         array_palabras = frase.split()
         for arreglo_prod in resultados_sin_filtrar:
@@ -23,7 +23,7 @@ class Filtrador:
 
         return resultado_total_filtrado
 
-    def contenga_algunas_palabras(resultados_sin_filtrar, frase):
+    def contenga_algunas_palabras(self, resultados_sin_filtrar, frase):
         resultado_total_filtrado = []
         array_palabras = frase.split()
         for arreglo_prod in resultados_sin_filtrar:
