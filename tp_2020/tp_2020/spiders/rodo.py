@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
+import datetime
 
 class RodoSpider(scrapy.Spider):
 
@@ -18,4 +19,5 @@ class RodoSpider(scrapy.Spider):
             titulo = producto.css(".product-name a::text").get()
             precio = producto.css(".price::text").get()
             link = producto.css(".item a[href]").attrib['href']
-            self.respuesta.append([titulo,precio,link])
+            date_now = datetime.datetime.now()
+            self.respuesta.append([titulo,precio,link,date_now.__str__()])

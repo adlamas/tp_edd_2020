@@ -1,6 +1,7 @@
 import scrapy
 from scrapy.selector import Selector
 from scrapy.crawler import CrawlerProcess
+import datetime
 
 class CompumundoSpider(scrapy.Spider):
     name = 'compumundo'
@@ -24,4 +25,5 @@ class CompumundoSpider(scrapy.Spider):
             titulo= producto.xpath('.//h3[@itemprop="name"]/text()').extract_first()
             precio= producto.xpath('.//span[starts-with(@id,"price")]/text()').extract_first()
             link= "https://www.compumundo.com.ar"+producto.xpath('.//a[@itemprop="url"]/@href').extract_first()
-            self.respuesta.append([titulo,precio,link])
+            date_now = datetime.datetime.now()
+            self.respuesta.append([titulo,precio,link,date_now.__str__()])

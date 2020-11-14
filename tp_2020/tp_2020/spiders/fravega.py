@@ -1,5 +1,6 @@
 import scrapy
 from scrapy.crawler import CrawlerProcess
+import datetime
 
 class FravegaSpider(scrapy.Spider):
 
@@ -15,7 +16,8 @@ class FravegaSpider(scrapy.Spider):
 
     def parse(self, response):
         for producto in response.css(".hlRWOw"):
-            titulo = producto.css(".akEoc::text").get()
+            titulo = producto.css(".akEoc::text")[1].get()
             precio = producto.css(".egaLpU::text").get()
-            link = producto.css(".hlRWOw a[href]").attrib['href']
-            self.respuesta.append([titulo,precio,link])
+            link = "https://www.fravega.com" + producto.css(".hlRWOw a[href]").attrib['href']
+            date_now = datetime.datetime.now()
+            self.respuesta.append([titulo,precio,link,date_now.__str__()])

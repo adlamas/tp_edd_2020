@@ -1,8 +1,11 @@
 import re
+from ordenador import organizador
 from scrapy.crawler import CrawlerProcess
 from tp_2020.tp_2020.spiders.rodo import RodoSpider
 from tp_2020.tp_2020.spiders.fravega import FravegaSpider
 from tp_2020.tp_2020.spiders.compumundo import CompumundoSpider
+from tp_2020.tp_2020.spiders.garbarino import GarbarinoSpider
+from filtrador import Filtrador
 
 #Clase Menu , para que el usuario permita elegir que buscar, como y en que páginas
 class Menu:
@@ -88,28 +91,49 @@ class Menu:
     def getpaginas_a_buscar(self):
         return self.__paginas_a_buscar
 
+    def __elegir_tipo_de_filtrado(self,numero,resultados_busqueda ):
+        res = []
+        if numero == 1:
+            res = Filtrador.frase_completa(resultados_busqueda, self.__a_buscar)
+        elif numero == 2:
+            res = Filtrador.contenga_todas_las_palabras(resultados_busqueda, self.__a_buscar)
+        elif numero == 3:
+            res = Filtrador.contenga_algunas_palabras(resultados_busqueda, self.__a_buscar)
+
+        return res
+
     def scrapear(self):
         paginas_busqueda_split = str(self.__paginas_a_buscar).split(",")
         process = CrawlerProcess({'USER_AGENT': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'})
         #Con Esto Se Seleccionan que Spiders vamos a usar
         for pagina in paginas_busqueda_split:
             if pagina == "1":
-                process.crawl(RodoSpider,self.__a_buscar)
+                process.crawl(GarbarinoSpider,self.__a_buscar)
             if pagina == "2":
+                process.crawl(RodoSpider,self.__a_buscar)
+            if pagina == "3":
+                process.crawl(CompumundoSpider,busqueda=self.__a_buscar)
+            if pagina == "4":
                 process.crawl(FravegaSpider,self.__a_buscar)
 
-        #Se Ejecutan Las Spiders, el parameto stop_after_crawl=true ,
-        #determina que hasta que no se terminen de scrapear todas las spider no pare
+        #Se Ejecutan Las Spiders, el parameto stop_after_crawl=true , determina que hasta que no se terminen de scrapear todas las spider no pare
         process.start()
-        resultados_busqueda = dict()
+        resultados_busqueda = []
         for resultado in paginas_busqueda_split:
             if resultado == "1":
-                resultados_busqueda['Rodo'] = RodoSpider.respuesta
+                resultados_busqueda = resultados_busqueda + GarbarinoSpider.respuesta
             if resultado == "2":
-                resultados_busqueda['Fravega'] = FravegaSpider.respuesta
+                resultados_busqueda = resultados_busqueda + RodoSpider.respuesta
+            if resultado == "3":
+                resultados_busqueda = resultados_busqueda + CompumundoSpider.respuesta
+            if resultado == "4":
+                resultados_busqueda = resultados_busqueda + FravegaSpider.respuesta
 
-        return resultados_busqueda
+        Filtrador.contenga_algunas_palabras(resultados_busqueda, self.__a_buscar)
 
+        resultados_busqueda = self.__elegir_tipo_de_filtrado(self.__metodo_busqueda,
+                resultados_busqueda )
+        organizador(resultados_busqueda,self.__metodo_busqueda,self.__a_buscar)
 
 if __name__ == "__main__":
     casa = Menu()
